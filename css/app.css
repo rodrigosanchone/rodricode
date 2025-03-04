@@ -4,6 +4,7 @@
 @import url(./hero.css);
 @import url(./banner1.css);
 @import url(./services.css);
+@import url(./banner2.css);
 :root{
   --tipo: "Roboto", serif;
   --bg-primario: #F5F5F5;
@@ -64,6 +65,6 @@ p,a{
 
 .content{
   max-width: 130rem;
-   margin: 0 auto;
+   margin: 2rem auto;
 }
 

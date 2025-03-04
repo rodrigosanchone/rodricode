@@ -20,7 +20,7 @@
 
 .service {
   max-height: 400px;
-  border: rgb(220, 220, 220) solid;
+  border: rgb(220, 220, 220) solid 0.5px;
   border-radius: 1rem;
   padding: 1rem;
   margin: 0.5rem;
