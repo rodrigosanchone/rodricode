@@ -3,6 +3,7 @@
 @import url(./header.css);
 @import url(./hero.css);
 @import url(./banner1.css);
+@import url(./services.css);
 :root{
   --tipo: "Roboto", serif;
   --bg-primario: #F5F5F5;
@@ -29,7 +30,7 @@ html {
 
 body {
   font-size: 16px;
-  background-color: #fff;
+  background-color: black;
 }
 
 h1{
@@ -46,7 +47,7 @@ h3{
 }
 
 p,a{
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 
@@ -60,3 +61,9 @@ p,a{
   padding: 2rem;
   border-radius: 1rem;
 }
+
+.content{
+  max-width: 130rem;
+   margin: 0 auto;
+}
+

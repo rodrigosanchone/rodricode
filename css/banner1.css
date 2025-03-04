@@ -10,6 +10,8 @@
   scroll-snap-stop: always;
   display: flex;
   flex-direction: row-reverse;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
 }
 .content-banner1 {
   position: absolute;
@@ -20,10 +22,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  padding-left: 6rem;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 
