@@ -8,6 +8,8 @@
   background-color: #000;
   color: #fff;
   text-align: justify;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
 }
 
 .text {
@@ -16,6 +18,8 @@
 
 .text h2 {
   font-size: 7rem;
+  text-align: center;
+  color: rgb(229, 152, 196);
 }
 
 .text p {
@@ -44,6 +48,11 @@ img {
 
   .text {
     padding: 2rem;
+  }
+
+  .text h2 {
+    text-align: left;
+    margin-left: 5rem;
   }
 
   .content-img {

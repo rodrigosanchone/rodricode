@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url(./header.css);
 @import url(./hero.css);
+@import url(./banner1.css);
 :root{
   --tipo: "Roboto", serif;
   --bg-primario: #F5F5F5;
@@ -11,23 +12,8 @@
   
 }
 
-h1{
-  font-size: 2.5rem;
 
-}
 
-h2{
-  font-size: 2rem;
-
-}
-
-h3{
- font-size: 1.75;
-}
-
-p,a{
-  font-size: 1rem;
-}
 
 html {
   font-size: 62.5%;
@@ -43,5 +29,34 @@ html {
 
 body {
   font-size: 16px;
+  background-color: #fff;
+}
 
+h1{
+  font-size: 3.5rem;
+
+}
+
+h2{
+  font-size: 3rem;
+}
+
+h3{
+ font-size: 1.75;
+}
+
+p,a{
+  font-size: 1rem;
+}
+
+
+
+
+.sombra {
+  -webkit-box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.54);
+  -moz-box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.54);
+  box-shadow: 0px 5px 15px 0px rgba(112, 112, 112, 0.54);
+  background-color: var(--blanco);
+  padding: 2rem;
+  border-radius: 1rem;
 }
