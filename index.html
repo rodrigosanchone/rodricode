@@ -27,7 +27,12 @@
         </svg>
       </div>
     </header>
-    <div class="hero">
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="/#services">Servicios</a>
+      <a href="/#contact">Contacto</a>
+    </nav>
+    <div class="hero" id="hero">
       <div class="text">
         <h2>Hola</h2>
         <p>
@@ -47,7 +52,7 @@
         <h2>Desarrollo y diseño web</h2>
       </div>
     </div>
-    <section class="services content">
+    <section class="services content" id="services">
       <div class="service">
         <h2>Sitio web básico</h2>
         <ul>
@@ -59,8 +64,8 @@
           <li>Sección sobre nosotros</li>
           <li>Sección de contacto</li>
         </ul>
-        <p>$20 Dólares mensuales</p>
         <p>No incluye servidor de correos</p>
+        <p class="prices">$20 Dólares mensuales</p>
       </div>
       <div class="service">
         <h2>Sitio web avanzado</h2>
@@ -75,7 +80,7 @@
           <li>Sección de contacto</li>
           <li>Servidor de correos profecional para una cuenta</li>
         </ul>
-        <p>$40 Dólares mensuales</p>
+        <p class="prices">$40 Dólares mensuales</p>
       </div>
       <div class="service">
         <h2>Sitio web premium</h2>
@@ -91,7 +96,7 @@
           <li>Servidor de correos profesional para 5 cuentas</li>
           <li>Blog</li>
         </ul>
-        <p>$60 Dólares mensuales</p>
+        <p class="prices">$60 Dólares mensuales</p>
       </div>
     </section>
     <div class="banner2">
@@ -105,5 +110,42 @@
         </div>
       </div>
     </div>
+    <section class="contact content" id="contact">
+      <div class="content-form">
+        <form class="form">
+          <fieldset>
+            <legend>Creemos algo increíble juntos</legend>
+            <div class="contenedor-campos">
+              <div class="box-form">
+                <label for="">Nombre</label>
+                <input type="text" placeholder="Nombre" class="input-text">
+              </div >
+        
+               <div class="box-form"">
+                <label for="">Teléfono</label>
+                <input type="tel" placeholder="Teléfono" class="input-text">
+               </div >
+        
+               <div class="box-form"">
+                <label for="">Correo</label>
+                <input type="email" placeholder="Email" class="input-text">
+               </div>
+               <div class="box-form"">
+                <label>Mensaje</label>
+                <textarea class="input-text"></textarea>
+               </div>
+               <div class="flex alinear-derecha .w-sm-100">
+                <button type="submit" value="Enviar" class="btn w-sm-100">Enviar</button>
+              </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="img">
+        <img
+          src="https://images.unsplash.com/photo-1590935216525-e35827458736?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Di"
+          alt="imagen-contacto"
+        />
+      </div>
+    </section>
   </body>
 </html>

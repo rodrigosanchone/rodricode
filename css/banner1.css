@@ -10,8 +10,6 @@
   scroll-snap-stop: always;
   display: flex;
   flex-direction: row-reverse;
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
 }
 .content-banner1 {
   position: absolute;
@@ -29,6 +27,13 @@
 }
 
 .content-banner1 h2 {
-  color: #9933cc;
-  font-size: 5rem;
+  color: #4aa3ff;
+  font-size: 3rem;
+  text-align: center;
+}
+
+@media (min-width: 720px) {
+  .content-banner1 h2 {
+    font-size: 5rem;
+  }
 }

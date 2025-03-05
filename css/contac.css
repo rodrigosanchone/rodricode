@@ -1,0 +1,66 @@
+.contact {
+  display: flex;
+  justify-content: space-around;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  align-items: center;
+}
+
+.form {
+  color: #fff;
+  padding: 2rem;
+  display: flex;
+}
+
+.form fieldset {
+  border: none;
+  margin-bottom: 5rem;
+}
+
+.form fieldset legend {
+  color: rgb(229, 152, 196);
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.box-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 720px) {
+  .box-form {
+    width: 400px;
+  }
+}
+
+.box-form label {
+  margin-bottom: 0.9rem;
+}
+
+.box-form input,
+textarea {
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contact .img {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .contact .img {
+    display: block;
+    width: 20%;
+    height: 418x;
+  }
+}
+
+.contact .img img {
+  width: 100%;
+  border-radius: 50rem;
+}
