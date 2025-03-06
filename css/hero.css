@@ -1,10 +1,11 @@
 .hero {
+  margin-top: 10rem;
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 800px;
+  height: 700px;
   background-color: #000;
   color: #fff;
   text-align: left;
@@ -38,6 +39,7 @@ img {
 
 @media (min-width: 720px) {
   .hero {
+    margin: 0;
     display: grid;
     grid-template-columns: 60% 40%;
     height: 800px;

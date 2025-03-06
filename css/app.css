@@ -82,7 +82,7 @@ p,a{
 
 .btn:hover{
   background-color: #4aa3ff;
- 
+  cursor: pointer;
 }
 
 .w-sm-100 {
