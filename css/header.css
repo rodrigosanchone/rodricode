@@ -21,14 +21,6 @@ header svg {
 }
 
 nav {
-  /*   display: flex;
-  flex-direction: column;
-  text-align: center;
-   margin-left: -5000px;
-  position: relative;
-  left: -5000px;
-  height: 30px;
- */
   display: none; /* Ocultar por defecto */
   flex-direction: column;
   text-align: center;
@@ -89,5 +81,5 @@ nav a:last-child {
 .mostrar {
   /*Estrilo para mostrar el ménu responsive*/
   display: flex; /* Mostrar el menú */
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }

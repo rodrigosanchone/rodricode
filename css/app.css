@@ -6,6 +6,7 @@
 @import url(./services.css);
 @import url(./banner2.css);
 @import url(./contac.css);
+@import url(./footer.css);
 :root{
   --tipo: "Roboto", serif;
   --bg-primario: #F5F5F5;
@@ -33,7 +34,8 @@ html {
 body {
   font-size: 16px;
   background-color: black;
-  font-family: "Roboto", serif; ;
+  font-family: "Roboto", serif; 
+ 
 }
 
 h1{
@@ -81,7 +83,9 @@ p,a{
 }
 
 .btn:hover{
-  background-color: #4aa3ff;
+ /*  background-color: #4aa3ff; */
+ background-color: #66ffcc;
+  color: #000;
   cursor: pointer;
 }
 
@@ -94,4 +98,9 @@ p,a{
     width: 50%;
   }
 }
+
+.content-y-hidden{
+  overflow-y: hidden;
+}
+
 
