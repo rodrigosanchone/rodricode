@@ -1,0 +1,86 @@
+.header {
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.header h1 {
+  color: #9933cc;
+  font-weight: bold;
+  font-size: 3.5rem;
+}
+
+.header svg {
+  cursor: pointer;
+}
+
+.nav {
+  display: none; /* Ocultar por defecto */
+  flex-direction: column;
+  text-align: center;
+  position: fixed; /* Fijo para superposición */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 100%; /* Cubrirá toda la ventana */
+  background-color: rgba(238, 238, 238, 0.95);
+  text-align: center;
+  z-index: 1000; /* Prioridad sobre otros elementos */
+  justify-content: center; /* Centrar verticalmente los enlaces */
+  align-items: center;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #000;
+  margin-bottom: 5rem;
+  font-size: 4rem;
+}
+
+.navLink:hover {
+  color: #9933cc; /* Color al hacer hover */
+}
+
+#nav navLink:last-child {
+  margin-botom: 0;
+}
+
+.contentClose {
+  width: 10%;
+  border-radius: 50%;
+  background-color: #9933cc;
+  color: #fff;
+  cursor: pointer;
+  position: absolute; /* Coloca el botón en posición absoluta */
+  top: 20;
+  right: 10;
+}
+
+.contentClose:hover {
+  background-color: #660099; /* Cambia el color al pasar el mouse */
+}
+
+@media (min-width: 720px) {
+  .contentClose {
+    width: 2%;
+  }
+}
+
+.close {
+  font-size: 0.5rem;
+}
+
+.mostrar {
+  /*Estrilo para mostrar el ménu responsive*/
+  display: flex; /* Mostrar el menú */
+  transition: all 0.5s ease-in-out;
+}
+
+.content-y-hidden {
+  overflow-y: hidden;
+}
