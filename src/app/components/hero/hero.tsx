@@ -23,7 +23,7 @@ export default function Hero() {
       <div className={Styles.content_img} data-aos="fade-left">
         <img
           className={Styles.image}
-          src="/images/logo-para-afichez.png"
+          src="/image/logo-para-afichez.png"
           alt="logo"
         />
       </div>
