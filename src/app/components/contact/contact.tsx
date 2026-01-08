@@ -33,7 +33,7 @@ function ContactForm() {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
     if (!executeRecaptcha) {
-      setIsSuccess(false);
+      setIsSuccess(false); //jola
       setMessage("reCAPTCHA no está listo, intenta de nuevo.");
       return;
     }
