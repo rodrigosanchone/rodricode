@@ -51,28 +51,6 @@ export default function Services() {
           <p className={Styles.prices}>$60 Dólares mensuales</p>
         </div>
       </div>
-
-      <div>
-        <div className={Styles.service}>
-          <h2>Factura Electrónica</h2>
-          <ul>
-            <li>Capacitación para crear factura electrónica</li>
-            <li>Sistema ATV Hacienda Costa Rica</li>
-            <li>Clase por medio de video</li>
-            <li>Servicio personalizado</li>
-          </ul>
-          <p className={Styles.prices}>$20 Dólares</p>
-        </div>
-        <div className={Styles.service}>
-          <h2>Creación de Factura Electrónica</h2>
-          <ul>
-            <li>Generación y envío de facturas</li>
-            <li>Sistema ATV Hacienda Costa Rica</li>
-            <li>Soporte técnico continuo</li>
-          </ul>
-          <p className={Styles.prices}>$10 Dólares por factura</p>
-        </div>
-      </div>
     </section>
   );
 }
