@@ -2,27 +2,64 @@
 import React, { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import emailjs from "emailjs-com";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
+
 import Styles from "./contact.module.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { emailJsConfig } from "../../../lib/environmen";
+import { emailJsConfig, recaptchaConfig } from "../../../lib/environmen";
+
 interface IFormInput {
   name: string;
   email: string;
   message: string;
 }
-export default function Contact() {
+
+function ContactForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IFormInput>();
+
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState<string>("");
 
-  const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
-    emailjs
-      .send(
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
+    if (!executeRecaptcha) {
+      setIsSuccess(false);
+      setMessage("reCAPTCHA no está listo, intenta de nuevo.");
+      return;
+    }
+
+    try {
+      // Ejecuta reCAPTCHA v3 con acción "submit"
+      const token = await executeRecaptcha("submit");
+
+      // 🔒 Aquí deberías enviar el token a tu backend (Firebase Function) para validarlo con SECRET_KEY
+      // Ejemplo:
+      // const verify = await fetch("/api/verify-recaptcha", {
+      const verify = await fetch("/api/verify-recaptcha", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+      const result = await verify.json();
+
+      if (!result.success || result.score < 0.5) {
+        throw new Error("Actividad sospechosa detectada");
+      }
+
+      // }
+
+      // Si tu backend confirma que es válido, recién llamas a EmailJS
+      await emailjs.send(
         emailJsConfig.YOUR_SERVICE_ID,
         emailJsConfig.YOUR_TEMPLATE_ID,
         {
@@ -31,105 +68,124 @@ export default function Contact() {
           reply_to: data.email,
         },
         emailJsConfig.YOUR_PUBLIC_KEY
-      )
-      .then((response) => {
-        setIsSuccess(true);
-        setMessage("Mensaje enviado con éxito!");
-      })
-      .catch((error) => {
-        setIsSuccess(false);
-        setMessage("Hubo un error al enviar el mensaje.");
-      });
+      );
+
+      setIsSuccess(true);
+      setMessage("¡Mensaje enviado con éxito!");
+      reset();
+    } catch (error) {
+      console.error("Error al enviar el mensaje:", error);
+      setIsSuccess(false);
+      setMessage("Hubo un error al enviar el mensaje.");
+    }
   };
+
+  // Ocultar mensaje después de 3 segundos
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => setMessage(""), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
+
   return (
-    <section className={Styles.contact} id="contact">
-      <div className={Styles.content_form}>
-        <form onSubmit={handleSubmit(onSubmit)} className={Styles.form}>
-          <fieldset>
-            <div className={Styles.box_form}>
-              <label htmlFor="name">Nombre</label>
-              <input
-                type="text"
-                placeholder="Nombre"
-                autoComplete="false"
-                className={Styles.input_text}
-                id="name"
-                {...register("name", { required: "Nombre es requerido" })}
-              />
-              {errors.name && (
-                <div className="mt-1 text-red">
-                  <small>{errors.name.message}</small>
-                </div>
-              )}
+    <form onSubmit={handleSubmit(onSubmit)} className={Styles.form}>
+      <fieldset>
+        <div className={Styles.box_form}>
+          <label htmlFor="name">Nombre</label>
+          <input
+            type="text"
+            placeholder="Nombre"
+            autoComplete="off"
+            className={Styles.input_text}
+            id="name"
+            aria-label="Nombre"
+            aria-invalid={errors.name ? "true" : "false"}
+            {...register("name", { required: "Nombre es requerido" })}
+          />
+          {errors.name && (
+            <div className="mt-1 text-red">
+              <small>{errors.name.message}</small>
             </div>
-            {/*  <div className={Styles.box_form}>
-              <label htmlFor="phone">Teléfono</label>
-              <input
-                type="tel"
-                placeholder="Teléfono"
-                className={Styles.input_text}
-                id="phone"
-              />
-            </div> */}
-            <div className={Styles.box_form}>
-              <label htmlFor="email">Correo</label>
-              <input
-                type="email"
-                placeholder="Email"
-                className={Styles.input_text}
-                id="email_address"
-                {...register("email", {
-                  required: "Correo es requerido",
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                    message: "Correo no es válido",
-                  },
-                })}
-              />
-              {errors.email && (
-                <div className="mt-1 text-red">
-                  <small>{errors.email.message}</small>
-                </div>
-              )}
+          )}
+        </div>
+
+        <div className={Styles.box_form}>
+          <label htmlFor="email">Correo</label>
+          <input
+            type="email"
+            placeholder="Email"
+            className={Styles.input_text}
+            id="email"
+            aria-label="Correo"
+            aria-invalid={errors.email ? "true" : "false"}
+            {...register("email", {
+              required: "Correo es requerido",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Correo no es válido",
+              },
+            })}
+          />
+          {errors.email && (
+            <div className="mt-1 text-red">
+              <small>{errors.email.message}</small>
             </div>
-            <div className={Styles.box_form}>
-              <label htmlFor="message">Mensaje</label>
-              <textarea
-                placeholder="Mensaje"
-                className={Styles.input_text}
-                id="message"
-                {...register("message", { required: "Mensaje es requerido" })}
-              />
-              {errors.message && (
-                <div className="mt-1 text-red">
-                  {" "}
-                  <small>{errors.message.message}</small>
-                </div>
-              )}
+          )}
+        </div>
+
+        <div className={Styles.box_form}>
+          <label htmlFor="message">Mensaje</label>
+          <textarea
+            placeholder="Mensaje"
+            className={Styles.input_text}
+            id="message"
+            aria-label="Mensaje"
+            aria-invalid={errors.message ? "true" : "false"}
+            {...register("message", { required: "Mensaje es requerido" })}
+          />
+          {errors.message && (
+            <div className="mt-1 text-red">
+              <small>{errors.message.message}</small>
             </div>
-            <div className="flex alinear_derecha w_sm_100">
-              <button type="submit" className="btn .w_sm_100">
-                Enviar
-              </button>
-            </div>
-          </fieldset>
-        </form>
+          )}
+        </div>
+
+        <div className="flex alinear_derecha w_sm_100">
+          <button type="submit" className="btn w_sm_100">
+            Enviar
+          </button>
+        </div>
+
         {message && (
           <div
             className={`mt-5 p-4 text-center ${
-              isSuccess ? "bg-green-500" : "bg-red-500"
-            } text-white`}
+              isSuccess ? Styles.successMessage : Styles.errorMessage
+            }`}
           >
             {message}
           </div>
         )}
+      </fieldset>
+    </form>
+  );
+}
+
+export default function Contact() {
+  return (
+    <section className={Styles.contact} id="contact">
+      <div className={Styles.content_form}>
+        <GoogleReCaptchaProvider reCaptchaKey={recaptchaConfig.SITE_KEY}>
+          <ContactForm />
+        </GoogleReCaptchaProvider>
       </div>
       <div className={Styles.img}>
         <img
-          src="https://images.unsplash.com/photo-1590935216525-e35827458736?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Di"
+          src="https://images.unsplash.com/photo-1590935216525-e35827458736?q=80&w=1974&auto=format&fit=crop"
           alt="imagen-contacto"
         />
       </div>

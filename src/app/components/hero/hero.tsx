@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import Styles from "./hero.module.css";
-import Logo from "../../../../public/logo.png";
+/* import Logo from "../../../../public/logo.png"; */
 import AOS from "aos";
 import "aos/dist/aos.css";
 export default function Hero() {
@@ -21,7 +21,11 @@ export default function Hero() {
         </p>
       </div>
       <div className={Styles.content_img} data-aos="fade-left">
-        <img className={Styles.image} src={Logo.src} alt="" />
+        <img
+          className={Styles.image}
+          src="https://firebasestorage.googleapis.com/v0/b/portafolio-f4371.firebasestorage.app/o/logo%20para%20afichez.png?alt=media&token=5d66b016-4fab-4931-b5ae-c727dea5cafc"
+          alt=""
+        />
       </div>
     </div>
   );

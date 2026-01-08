@@ -70,3 +70,20 @@
   height: 420px;
   margin-bottom: 5rem;
 }
+
+.successMessage {
+  background-color: #4caf50; /* Verde para éxito */
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.errorMessage {
+  background-color: #f44336; /* Rojo para error */
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+}
