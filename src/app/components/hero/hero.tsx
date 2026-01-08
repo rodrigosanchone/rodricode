@@ -24,7 +24,7 @@ export default function Hero() {
         <img
           className={Styles.image}
           src="/images/logo-para-afichez.png"
-          alt=""
+          alt="logo"
         />
       </div>
     </div>
