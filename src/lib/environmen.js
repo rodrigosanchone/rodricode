@@ -15,6 +15,6 @@ export const emailJsConfig = {
 };
 
 export const recaptchaConfig = {
-  SITE_KEY: "6LfzIoMqAAAAACS5p8kACFAEraLg6VyuZGuVKs4D",
-  SECRET_KEY: "6LfzIoMqAAAAAFfrlSOtDTVUcH51NtG0DYlcW72E",
+  SITE_KEY: "",
+  SECRET_KEY: "",
 };
