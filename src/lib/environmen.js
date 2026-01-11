@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
-  apiKey: "AIzaSyCOakBzr_sCJGRtEWiOayvWNFd9XIZk1pk",
-  authDomain: "portafolio-f4371.firebaseapp.com",
-  projectId: "portafolio-f4371",
-  storageBucket: "portafolio-f4371.firebasestorage.app",
-  messagingSenderId: "443555057492",
-  appId: "1:443555057492:web:f4d5e8c2f7aaee7bbfc2c1",
-  measurementId: "G-2JQ4VJE609",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -15,9 +15,9 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 export const emailJsConfig = {
-  YOUR_SERVICE_ID: "service_tnel3uv",
-  YOUR_TEMPLATE_ID: "template_ftcal99",
-  YOUR_PUBLIC_KEY: "zwIzwnKmBo1nR7wmu",
+  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+  templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
 };
 
 export const recaptchaConfig = {

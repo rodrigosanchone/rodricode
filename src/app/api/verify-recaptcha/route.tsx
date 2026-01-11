@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     );
 
     const data = await response.json();
-    console.log("Respuesta de Google:", data);
+    /*     console.log("Respuesta de Google:", data); */
 
     const threshold = Number(process.env.RECAPTCHA_THRESHOLD ?? 0.3);
 

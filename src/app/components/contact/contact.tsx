@@ -73,8 +73,6 @@ function ContactForm() {
         emailJsConfig.YOUR_PUBLIC_KEY
       );
 
-      console.log("Respuesta de EmailJS:", emailResponse);
-
       setIsSuccess(true);
       setMessage("✅ ¡Mensaje enviado con éxito!");
       reset();
