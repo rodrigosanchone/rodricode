@@ -30,9 +30,13 @@ export async function POST(req: Request) {
 
     const threshold = Number(process.env.RECAPTCHA_THRESHOLD ?? 0.3);
 
-    if (!data.success || data.score < threshold) {
+    if (!data.success || (data.score !== undefined && data.score < threshold)) {
       return NextResponse.json(
-        { success: false, score: data.score, error: data["error-codes"] },
+        {
+          success: false,
+          score: data.score ?? null,
+          error: data["error-codes"] ?? ["validación fallida"],
+        },
         { status: 400 }
       );
     }
