@@ -10,7 +10,7 @@ import {
 import Styles from "./contact.module.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { emailJsConfig, recaptchaConfig } from "../../../lib/environmen";
+import { emailJsConfig, recaptchaConfig } from "@/lib/environmen"; // 👈 corrige aquí
 
 interface IFormInput {
   name: string;
@@ -33,33 +33,36 @@ function ContactForm() {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
     if (!executeRecaptcha) {
-      setIsSuccess(false); //jola
-      setMessage("reCAPTCHA no está listo, intenta de nuevo.");
+      setIsSuccess(false);
+      setMessage("⚠️ reCAPTCHA no está listo, intenta de nuevo.");
       return;
     }
 
     try {
       // Ejecuta reCAPTCHA v3 con acción "submit"
       const token = await executeRecaptcha("submit");
+      console.log("Token generado por reCAPTCHA:", token);
 
-      // 🔒 Aquí deberías enviar el token a tu backend (Firebase Function) para validarlo con SECRET_KEY
-      // Ejemplo:
-      // const verify = await fetch("/api/verify-recaptcha", {
+      // Envía el token a tu backend para validarlo con SECRET_KEY
       const verify = await fetch("/api/verify-recaptcha", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token }),
       });
-      const result = await verify.json();
 
-      if (!result.success || result.score < 0.5) {
-        throw new Error("Actividad sospechosa detectada");
+      const result = await verify.json();
+      console.log("Respuesta del backend:", result);
+
+      // Ajusta el umbral de score según tu caso (0.3 recomendado)
+      if (!result.success || result.score < 0.3) {
+        console.warn("Validación reCAPTCHA fallida:", result);
+        setIsSuccess(false);
+        setMessage("⚠️ Validación reCAPTCHA fallida, intenta de nuevo.");
+        return;
       }
 
-      // }
-
-      // Si tu backend confirma que es válido, recién llamas a EmailJS
-      await emailjs.send(
+      // Si el backend confirma que es válido, recién llamas a EmailJS
+      const emailResponse = await emailjs.send(
         emailJsConfig.YOUR_SERVICE_ID,
         emailJsConfig.YOUR_TEMPLATE_ID,
         {
@@ -70,13 +73,15 @@ function ContactForm() {
         emailJsConfig.YOUR_PUBLIC_KEY
       );
 
+      console.log("Respuesta de EmailJS:", emailResponse);
+
       setIsSuccess(true);
-      setMessage("¡Mensaje enviado con éxito!");
+      setMessage("✅ ¡Mensaje enviado con éxito!");
       reset();
     } catch (error) {
       console.error("Error al enviar el mensaje:", error);
       setIsSuccess(false);
-      setMessage("Hubo un error al enviar el mensaje.");
+      setMessage("❌ Hubo un error al enviar el mensaje.");
     }
   };
 
