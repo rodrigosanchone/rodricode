@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { recaptchaConfig } from "@/lib/environmen";
+import { recaptchaConfig } from "@/lib/environment";
 
 export async function POST(req: Request) {
   try {
@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     if (!token) {
       return NextResponse.json(
         { success: false, error: "Token faltante" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `secret=${secret}&response=${token}`,
-      }
+      },
     );
 
     const data = await response.json();
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
           score: data.score ?? null,
           error: data["error-codes"] ?? ["validación fallida"],
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     console.error("❌ Error en verify-recaptcha:", error);
     return NextResponse.json(
       { success: false, error: "Error interno en el servidor" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
