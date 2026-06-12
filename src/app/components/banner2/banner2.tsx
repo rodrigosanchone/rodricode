@@ -46,12 +46,7 @@ export default function Banner2() {
                   width="40"
                   height="40"
                   strokeWidth="1.5"
-                >
-                  <path d="M16 20h3a1 1 0 0 0 1 -1v-14a1 1 0 0 0 -1 -1h-3v16z"></path>
-                  <path d="M5 20h3v-16h-3a1 1 0 0 0 -1 1v14a1 1 0 0 0 1 1z"></path>
-                  <path d="M16 4l-4 4l-4 -4"></path>
-                  <path d="M4 6.5l8 7.5l8 -7.5"></path>
-                </svg>
+                ></svg>
               </span>
               <p>servicio@rodricode.com</p>
             </li>
