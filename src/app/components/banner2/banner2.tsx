@@ -53,7 +53,7 @@ export default function Banner2() {
                   <path d="M4 6.5l8 7.5l8 -7.5"></path>
                 </svg>
               </span>
-              <p>rodrigosanchonet@gmail.com</p>
+              <p>servicio@rodricode.com</p>
             </li>
           </ul>
         </div>
