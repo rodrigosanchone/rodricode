@@ -10,7 +10,7 @@ import {
 import Styles from "./contact.module.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { emailJsConfig, recaptchaConfig } from "@/lib/environmen"; // 👈 corrige aquí
+import { emailJsConfig, recaptchaConfig } from "@/lib/environment"; // ✅ corregido
 
 interface IFormInput {
   name: string;
@@ -41,7 +41,6 @@ function ContactForm() {
     try {
       // Ejecuta reCAPTCHA v3 con acción "submit"
       const token = await executeRecaptcha("submit");
-      console.log("Token generado por reCAPTCHA:", token);
 
       // Envía el token a tu backend para validarlo con SECRET_KEY
       const verify = await fetch("/api/verify-recaptcha", {
@@ -51,11 +50,8 @@ function ContactForm() {
       });
 
       const result = await verify.json();
-      console.log("Respuesta del backend:", result);
 
-      // Ajusta el umbral de score según tu caso (0.3 recomendado)
       if (!result.success || result.score < 0.3) {
-        console.warn("Validación reCAPTCHA fallida:", result);
         setIsSuccess(false);
         setMessage("⚠️ Validación reCAPTCHA fallida, intenta de nuevo.");
         return;
@@ -63,14 +59,14 @@ function ContactForm() {
 
       // Si el backend confirma que es válido, recién llamas a EmailJS
       const emailResponse = await emailjs.send(
-        emailJsConfig.YOUR_SERVICE_ID,
-        emailJsConfig.YOUR_TEMPLATE_ID,
+        emailJsConfig.serviceId!, // ✅ usa serviceId
+        emailJsConfig.templateId!, // ✅ usa templateId
         {
           from_name: data.name,
           message: data.message,
           reply_to: data.email,
         },
-        emailJsConfig.YOUR_PUBLIC_KEY
+        emailJsConfig.publicKey!, // ✅ usa publicKey
       );
 
       setIsSuccess(true);
