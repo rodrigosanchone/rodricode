@@ -182,12 +182,7 @@ export default function Contact() {
           <ContactForm />
         </GoogleReCaptchaProvider>
       </div>
-      <div className={Styles.img}>
-        <img
-          src="https://images.unsplash.com/photo-1590935216525-e35827458736?q=80&w=1974&auto=format&fit=crop"
-          alt="imagen-contacto"
-        />
-      </div>
+      <div className={Styles.img}></div>
     </section>
   );
 }
