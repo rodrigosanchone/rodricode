@@ -15,12 +15,12 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 export const emailJsConfig = {
-  YOUR_SERVICE_ID: "service_tnel3uv",
-  YOUR_TEMPLATE_ID: "template_ftcal99",
-  YOUR_PUBLIC_KEY: "zwIzwnKmBo1nR7wmu",
+  YOUR_SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+  YOUR_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
+  YOUR_PUBLIC_KEY: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "",
 };
 
 export const recaptchaConfig = {
-  SITE_KEY: "6LfzIoMqAAAAACS5p8kACFAEraLg6VyuZGuVKs4D",
-  SECRET_KEY: "6LfzIoMqAAAAAFfrlSOtDTVUcH51NtG0DYlcW72E",
+  SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "",
+  SECRET_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY || "",
 };

@@ -1,32 +1,72 @@
 "use client";
 import React, { useEffect } from "react";
 import Styles from "./hero.module.css";
-/* import Logo from "../../../../public/logo.png"; */
+import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
 export default function Hero() {
   useEffect(() => {
-    AOS.init({ duration: 2000 });
+    AOS.init({ duration: 800, easing: "ease-out-cubic", once: true });
   }, []);
+
   return (
-    <div className={Styles.hero} id="hero">
-      <div className={Styles.text}>
-        <h2>Hola</h2>
-        <p>
-          Soy un diseñador web radicado en Puntarenas, Costa Rica. Graduado del
-          Instituto Nacional de Aprendizaje. Con experiencia en el diseño de
-          blogs y paginas para comercios, con interfaces limpias y bien
-          cuidadas. Ofrezco mi servicios con diferentes paquetes y precios muy
-          económicos para pequeños y medianos negocios
-        </p>
+    <section className={Styles.hero} id="hero">
+      <div className={Styles.inner}>
+        <div className={Styles.text} data-aos="fade-up">
+          <p className={Styles.eyebrow}>
+            Diseño & Desarrollo Web · Puntarenas, CR
+          </p>
+          <h1 className={Styles.titulo}>
+            Tu negocio merece
+            <br />
+            una web a la altura
+          </h1>
+          <p className={Styles.descripcion}>
+            Sitios modernos, rápidos y bien cuidados. Con experiencia en diseño
+            de blogs y páginas para comercios, ofrezco interfaces limpias con
+            precios accesibles para pequeñas y medianas empresas.
+          </p>
+          <div className={Styles.ctas}>
+            <Link href="/#services" className="btn">
+              Ver planes
+            </Link>
+            <Link href="/#contact" className="btn-outline">
+              Contáctame
+            </Link>
+          </div>
+        </div>
+
+        <div
+          className={Styles.imgWrap}
+          data-aos="fade-left"
+          data-aos-delay="200"
+        >
+          <img
+            className={Styles.imagen}
+            src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&auto=format&fit=crop"
+            alt="Diseño y desarrollo web"
+          />
+        </div>
       </div>
-      <div className={Styles.content_img} data-aos="fade-left">
-        <img
-          className={Styles.image}
-          src="https://firebasestorage.googleapis.com/v0/b/portafolio-f4371.firebasestorage.app/o/logo%20para%20afichez.png?alt=media&token=5d66b016-4fab-4931-b5ae-c727dea5cafc"
-          alt=""
-        />
+
+      {/* Stats */}
+      <div className={Styles.stats} data-aos="fade-up" data-aos-delay="300">
+        <div className={Styles.stat}>
+          <span className={Styles.statNum}>4</span>
+          <span className={Styles.statLabel}>Planes disponibles</span>
+        </div>
+        <div className={Styles.statDivider} />
+        <div className={Styles.stat}>
+          <span className={Styles.statNum}>$150</span>
+          <span className={Styles.statLabel}>Desde USD</span>
+        </div>
+        <div className={Styles.statDivider} />
+        <div className={Styles.stat}>
+          <span className={Styles.statNum}>100%</span>
+          <span className={Styles.statLabel}>Responsive</span>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

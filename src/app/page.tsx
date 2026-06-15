@@ -12,7 +12,7 @@ export default function Home() {
     <div>
       <Header></Header>
       <Hero></Hero>
-      <Banner></Banner>
+
       <Services></Services>
       <Banner2></Banner2>
       <Contact></Contact>

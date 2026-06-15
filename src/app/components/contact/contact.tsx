@@ -6,10 +6,8 @@ import {
   GoogleReCaptchaProvider,
   useGoogleReCaptcha,
 } from "react-google-recaptcha-v3";
-
 import Styles from "./contact.module.css";
 import AOS from "aos";
-import "aos/dist/aos.css";
 import { emailJsConfig, recaptchaConfig } from "../../../lib/environmen";
 
 interface IFormInput {
@@ -28,6 +26,7 @@ function ContactForm() {
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -38,13 +37,11 @@ function ContactForm() {
       return;
     }
 
+    setLoading(true);
+
     try {
-      // Ejecuta reCAPTCHA v3 con acción "submit"
       const token = await executeRecaptcha("submit");
 
-      // 🔒 Aquí deberías enviar el token a tu backend (Firebase Function) para validarlo con SECRET_KEY
-      // Ejemplo:
-      // const verify = await fetch("/api/verify-recaptcha", {
       const verify = await fetch("/api/verify-recaptcha", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -56,9 +53,6 @@ function ContactForm() {
         throw new Error("Actividad sospechosa detectada");
       }
 
-      // }
-
-      // Si tu backend confirma que es válido, recién llamas a EmailJS
       await emailjs.send(
         emailJsConfig.YOUR_SERVICE_ID,
         emailJsConfig.YOUR_TEMPLATE_ID,
@@ -67,7 +61,7 @@ function ContactForm() {
           message: data.message,
           reply_to: data.email,
         },
-        emailJsConfig.YOUR_PUBLIC_KEY
+        emailJsConfig.YOUR_PUBLIC_KEY,
       );
 
       setIsSuccess(true);
@@ -77,95 +71,94 @@ function ContactForm() {
       console.error("Error al enviar el mensaje:", error);
       setIsSuccess(false);
       setMessage("Hubo un error al enviar el mensaje.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Ocultar mensaje después de 3 segundos
   useEffect(() => {
     if (message) {
-      const timer = setTimeout(() => setMessage(""), 3000);
+      const timer = setTimeout(() => setMessage(""), 4000);
       return () => clearTimeout(timer);
     }
   }, [message]);
 
   useEffect(() => {
-    AOS.init({ duration: 2000 });
+    AOS.init({ duration: 800, easing: "ease-out-cubic", once: true });
   }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={Styles.form}>
-      <fieldset>
-        <div className={Styles.box_form}>
-          <label htmlFor="name">Nombre</label>
-          <input
-            type="text"
-            placeholder="Nombre"
-            autoComplete="off"
-            className={Styles.input_text}
-            id="name"
-            aria-label="Nombre"
-            aria-invalid={errors.name ? "true" : "false"}
-            {...register("name", { required: "Nombre es requerido" })}
-          />
-          {errors.name && (
-            <div className="mt-1 text-red">
-              <small>{errors.name.message}</small>
-            </div>
-          )}
+      <fieldset className={Styles.fieldset}>
+        <div className={Styles.row}>
+          <div className={Styles.field}>
+            <label htmlFor="name" className={Styles.label}>
+              Nombre
+            </label>
+            <input
+              type="text"
+              placeholder="Tu nombre"
+              autoComplete="off"
+              className={`${Styles.input} ${errors.name ? Styles.inputError : ""}`}
+              id="name"
+              aria-label="Nombre"
+              aria-invalid={errors.name ? "true" : "false"}
+              {...register("name", { required: "Nombre es requerido" })}
+            />
+            {errors.name && (
+              <small className={Styles.errorMsg}>{errors.name.message}</small>
+            )}
+          </div>
+
+          <div className={Styles.field}>
+            <label htmlFor="email" className={Styles.label}>
+              Correo
+            </label>
+            <input
+              type="email"
+              placeholder="tu@correo.com"
+              className={`${Styles.input} ${errors.email ? Styles.inputError : ""}`}
+              id="email"
+              aria-label="Correo"
+              aria-invalid={errors.email ? "true" : "false"}
+              {...register("email", {
+                required: "Correo es requerido",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Correo no es válido",
+                },
+              })}
+            />
+            {errors.email && (
+              <small className={Styles.errorMsg}>{errors.email.message}</small>
+            )}
+          </div>
         </div>
 
-        <div className={Styles.box_form}>
-          <label htmlFor="email">Correo</label>
-          <input
-            type="email"
-            placeholder="Email"
-            className={Styles.input_text}
-            id="email"
-            aria-label="Correo"
-            aria-invalid={errors.email ? "true" : "false"}
-            {...register("email", {
-              required: "Correo es requerido",
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: "Correo no es válido",
-              },
-            })}
-          />
-          {errors.email && (
-            <div className="mt-1 text-red">
-              <small>{errors.email.message}</small>
-            </div>
-          )}
-        </div>
-
-        <div className={Styles.box_form}>
-          <label htmlFor="message">Mensaje</label>
+        <div className={Styles.field}>
+          <label htmlFor="message" className={Styles.label}>
+            Mensaje
+          </label>
           <textarea
-            placeholder="Mensaje"
-            className={Styles.input_text}
+            placeholder="Cuéntame sobre tu proyecto..."
+            className={`${Styles.input} ${Styles.textarea} ${errors.message ? Styles.inputError : ""}`}
             id="message"
             aria-label="Mensaje"
             aria-invalid={errors.message ? "true" : "false"}
             {...register("message", { required: "Mensaje es requerido" })}
           />
           {errors.message && (
-            <div className="mt-1 text-red">
-              <small>{errors.message.message}</small>
-            </div>
+            <small className={Styles.errorMsg}>{errors.message.message}</small>
           )}
         </div>
 
-        <div className="flex alinear_derecha w_sm_100">
-          <button type="submit" className="btn w_sm_100">
-            Enviar
-          </button>
-        </div>
+        <button type="submit" className={Styles.submitBtn} disabled={loading}>
+          {loading ? "Enviando..." : "Enviar mensaje"}
+        </button>
 
         {message && (
           <div
-            className={`mt-5 p-4 text-center ${
-              isSuccess ? Styles.successMessage : Styles.errorMessage
-            }`}
+            className={`${Styles.feedback} ${isSuccess ? Styles.feedbackSuccess : Styles.feedbackError}`}
           >
             {message}
           </div>
@@ -178,14 +171,19 @@ function ContactForm() {
 export default function Contact() {
   return (
     <section className={Styles.contact} id="contact">
-      <div className={Styles.content_form}>
+      <div className={Styles.content_form} data-aos="fade-right">
+        <p className={Styles.eyebrow}>Contacto</p>
+        <h2 className={Styles.titulo}>Creemos algo increíble juntos</h2>
+        <p className={Styles.sub}>
+          Completa el formulario y te respondo a la brevedad.
+        </p>
         <GoogleReCaptchaProvider reCaptchaKey={recaptchaConfig.SITE_KEY}>
           <ContactForm />
         </GoogleReCaptchaProvider>
       </div>
-      <div className={Styles.img}>
+      <div className={Styles.img} data-aos="fade-left">
         <img
-          src="https://images.unsplash.com/photo-1590935216525-e35827458736?q=80&w=1974&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&auto=format&fit=crop"
           alt="imagen-contacto"
         />
       </div>
