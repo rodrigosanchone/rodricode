@@ -8,7 +8,7 @@ import {
 } from "react-google-recaptcha-v3";
 import Styles from "./contact.module.css";
 import AOS from "aos";
-import { emailJsConfig, recaptchaConfig } from "../../../lib/environmen";
+import { emailJsConfig, recaptchaConfig } from "../../../lib/environment";
 
 interface IFormInput {
   name: string;

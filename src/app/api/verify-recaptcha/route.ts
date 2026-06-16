@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { recaptchaConfig } from "../../../lib/environmen";
+import { recaptchaConfig } from "../../../lib/environment";
 export async function POST(req: Request) {
   const { token } = await req.json();
 
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `secret=${secret}&response=${token}`,
-    }
+    },
   );
 
   const data = await response.json();
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   if (!data.success || data.score < 0.5) {
     return NextResponse.json(
       { success: false, score: data.score },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

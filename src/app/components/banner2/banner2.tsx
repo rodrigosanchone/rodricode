@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import Styles from "./banner2.module.css";
 import AOS from "aos";
-import { emailJsConfig } from "../../../lib/environmen";
+import { emailJsConfig } from "../../../lib/environment";
 
 export default function Banner2() {
   useEffect(() => {
