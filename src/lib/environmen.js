@@ -15,12 +15,13 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 export const emailJsConfig = {
-  YOUR_SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
-  YOUR_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
-  YOUR_PUBLIC_KEY: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "",
+  serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+  templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
+  publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "",
 };
 
+// ✅ Nombres correctos para reCAPTCHA
 export const recaptchaConfig = {
   SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "",
-  SECRET_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY || "",
+  SECRET_KEY: process.env.RECAPTCHA_SECRET_KEY || "",
 };

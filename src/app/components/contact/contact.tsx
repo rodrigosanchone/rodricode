@@ -54,14 +54,15 @@ function ContactForm() {
       }
 
       await emailjs.send(
-        emailJsConfig.YOUR_SERVICE_ID,
-        emailJsConfig.YOUR_TEMPLATE_ID,
+        emailJsConfig.serviceId,
+        emailJsConfig.templateId,
+
         {
           from_name: data.name,
           message: data.message,
           reply_to: data.email,
         },
-        emailJsConfig.YOUR_PUBLIC_KEY,
+        emailJsConfig.publicKey,
       );
 
       setIsSuccess(true);
