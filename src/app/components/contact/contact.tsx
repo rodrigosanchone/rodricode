@@ -49,13 +49,10 @@ function ContactForm() {
       });
       const result = await verify.json();
 
-     
-      }
-
+      // Aquí ya no cierres el try, sigue con emailjs
       await emailjs.send(
         emailJsConfig.serviceId,
         emailJsConfig.templateId,
-
         {
           from_name: data.name,
           message: data.message,
