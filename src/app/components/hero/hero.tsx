@@ -14,9 +14,7 @@ export default function Hero() {
     <section className={Styles.hero} id="hero">
       <div className={Styles.inner}>
         <div className={Styles.text} data-aos="fade-up">
-          <p className={Styles.eyebrow}>
-            Diseño & Desarrollo Web 
-          </p>
+          <p className={Styles.eyebrow}>Diseño & Desarrollo Web</p>
           <h1 className={Styles.titulo}>
             Tu negocio merece
             <br />

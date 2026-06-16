@@ -49,7 +49,8 @@ function ContactForm() {
       });
       const result = await verify.json();
 
-      
+     
+      }
 
       await emailjs.send(
         emailJsConfig.serviceId,
@@ -176,7 +177,10 @@ export default function Contact() {
         <p className={Styles.sub}>
           Completa el formulario y te respondo a la brevedad.
         </p>
-        <GoogleReCaptchaProvider reCaptchaKey={recaptchaConfig.SITE_KEY}>
+        <GoogleReCaptchaProvider
+          reCaptchaKey={recaptchaConfig.SITE_KEY}
+          scriptProps={{ async: true, defer: true }}
+        >
           <ContactForm />
         </GoogleReCaptchaProvider>
       </div>
