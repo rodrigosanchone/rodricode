@@ -49,9 +49,7 @@ function ContactForm() {
       });
       const result = await verify.json();
 
-      if (!result.success || result.score < 0.5) {
-        throw new Error("Actividad sospechosa detectada");
-      }
+      
 
       await emailjs.send(
         emailJsConfig.serviceId,
